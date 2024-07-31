@@ -5,6 +5,7 @@ package token_metadata
 import (
 	ag_binary "github.com/gagliardetto/binary"
 	ag_solanago "github.com/gagliardetto/solana-go"
+	"github.com/near/borsh-go"
 )
 
 type CreateMetadataAccountArgs struct {
@@ -43,16 +44,32 @@ func (obj *CreateMetadataAccountArgs) UnmarshalWithDecoder(decoder *ag_binary.De
 	return nil
 }
 
-type CreateMetadataAccountArgsV2 struct {
+type CreateMetadataAccountArgsV3 struct {
+	// Discriminator uint8
 	// Note that unique metadatas are disabled for now.
 	Data DataV2
 
 	// Whether you want your metadata to be updateable in the future.
 	IsMutable bool
+
+	CollectionDetails       *CollectionDetails
 }
 
-func (obj CreateMetadataAccountArgsV2) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
-	// Serialize `Data` param:
+type CollectionDetails struct {
+	Enum borsh.Enum `borsh_enum:"true"`
+	V1   CollectionDetailsV1
+}
+
+type CollectionDetailsV1 struct {
+	Size uint64
+}
+
+
+func (obj CreateMetadataAccountArgsV3) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+	// err = encoder.Encode(obj.Discriminator)
+	// if err != nil {
+	// 	return err
+	// }
 	err = encoder.Encode(obj.Data)
 	if err != nil {
 		return err
@@ -62,10 +79,20 @@ func (obj CreateMetadataAccountArgsV2) MarshalWithEncoder(encoder *ag_binary.Enc
 	if err != nil {
 		return err
 	}
-	return nil
-}
 
-func (obj *CreateMetadataAccountArgsV2) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+	err = encoder.Encode(obj.CollectionDetails)
+	if err != nil {
+		return err
+	}
+	return nil
+} 
+
+func (obj *CreateMetadataAccountArgsV3) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+	// err = decoder.Decode(&obj.Discriminator)
+	// if err != nil {
+	// 	return err
+	// }
+
 	// Deserialize `Data`:
 	err = decoder.Decode(&obj.Data)
 	if err != nil {
@@ -73,6 +100,11 @@ func (obj *CreateMetadataAccountArgsV2) UnmarshalWithDecoder(decoder *ag_binary.
 	}
 	// Deserialize `IsMutable`:
 	err = decoder.Decode(&obj.IsMutable)
+	if err != nil {
+		return err
+	}
+
+	err = decoder.Decode(&obj.CollectionDetails)
 	if err != nil {
 		return err
 	}

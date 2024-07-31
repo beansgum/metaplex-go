@@ -105,7 +105,7 @@ const (
 	Instruction_UpdateMetadataAccountV2
 
 	// Create Metadata object.
-	Instruction_CreateMetadataAccountV2
+	Instruction_CreateMetadataAccountV3
 
 	// Register a Metadata as a Master Edition V2, which means Edition V2s can be minted.
 	// Henceforth, no further tokens will be mintable from this primary mint. Will throw an error if more than one
@@ -170,8 +170,8 @@ func InstructionIDToName(id uint8) string {
 		return "PuffMetadata"
 	case Instruction_UpdateMetadataAccountV2:
 		return "UpdateMetadataAccountV2"
-	case Instruction_CreateMetadataAccountV2:
-		return "CreateMetadataAccountV2"
+	case Instruction_CreateMetadataAccountV3:
+		return "CreateMetadataAccountV3"
 	case Instruction_CreateMasterEditionV3:
 		return "CreateMasterEditionV3"
 	case Instruction_VerifyCollection:
@@ -257,7 +257,7 @@ var InstructionImplDef = ag_binary.NewVariantDefinition(
 			"UpdateMetadataAccountV2", (*UpdateMetadataAccountV2)(nil),
 		},
 		{
-			"CreateMetadataAccountV2", (*CreateMetadataAccountV2)(nil),
+			"CreateMetadataAccountV3", (*CreateMetadataAccountV3)(nil),
 		},
 		{
 			"CreateMasterEditionV3", (*CreateMasterEditionV3)(nil),

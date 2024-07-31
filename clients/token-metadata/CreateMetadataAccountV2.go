@@ -11,8 +11,8 @@ import (
 )
 
 // Create Metadata object.
-type CreateMetadataAccountV2 struct {
-	Args *CreateMetadataAccountArgsV2
+type CreateMetadataAccountV3 struct {
+	Args *CreateMetadataAccountArgsV3
 
 	// [0] = [WRITE] metadataKeyPDA
 	// ··········· Metadata key (pda of ['metadata', program id, mint id])
@@ -37,129 +37,129 @@ type CreateMetadataAccountV2 struct {
 	ag_solanago.AccountMetaSlice `bin:"-"`
 }
 
-// NewCreateMetadataAccountV2InstructionBuilder creates a new `CreateMetadataAccountV2` instruction builder.
-func NewCreateMetadataAccountV2InstructionBuilder() *CreateMetadataAccountV2 {
-	nd := &CreateMetadataAccountV2{
+// NewCreateMetadataAccountV3InstructionBuilder creates a new `CreateMetadataAccountV3` instruction builder.
+func NewCreateMetadataAccountV3InstructionBuilder() *CreateMetadataAccountV3 {
+	nd := &CreateMetadataAccountV3{
 		AccountMetaSlice: make(ag_solanago.AccountMetaSlice, 7),
 	}
 	return nd
 }
 
 // SetArgs sets the "args" parameter.
-func (inst *CreateMetadataAccountV2) SetArgs(args CreateMetadataAccountArgsV2) *CreateMetadataAccountV2 {
+func (inst *CreateMetadataAccountV3) SetArgs(args CreateMetadataAccountArgsV3) *CreateMetadataAccountV3 {
 	inst.Args = &args
 	return inst
 }
 
 // SetMetadataKeyPDAAccount sets the "metadataKeyPDA" account.
 // Metadata key (pda of ['metadata', program id, mint id])
-func (inst *CreateMetadataAccountV2) SetMetadataKeyPDAAccount(metadataKeyPDA ag_solanago.PublicKey) *CreateMetadataAccountV2 {
+func (inst *CreateMetadataAccountV3) SetMetadataKeyPDAAccount(metadataKeyPDA ag_solanago.PublicKey) *CreateMetadataAccountV3 {
 	inst.AccountMetaSlice[0] = ag_solanago.Meta(metadataKeyPDA).WRITE()
 	return inst
 }
 
 // GetMetadataKeyPDAAccount gets the "metadataKeyPDA" account.
 // Metadata key (pda of ['metadata', program id, mint id])
-func (inst *CreateMetadataAccountV2) GetMetadataKeyPDAAccount() *ag_solanago.AccountMeta {
+func (inst *CreateMetadataAccountV3) GetMetadataKeyPDAAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(0)
 }
 
 // SetMintOfTokenAccount sets the "mintOfToken" account.
 // Mint of token asset
-func (inst *CreateMetadataAccountV2) SetMintOfTokenAccount(mintOfToken ag_solanago.PublicKey) *CreateMetadataAccountV2 {
+func (inst *CreateMetadataAccountV3) SetMintOfTokenAccount(mintOfToken ag_solanago.PublicKey) *CreateMetadataAccountV3 {
 	inst.AccountMetaSlice[1] = ag_solanago.Meta(mintOfToken)
 	return inst
 }
 
 // GetMintOfTokenAccount gets the "mintOfToken" account.
 // Mint of token asset
-func (inst *CreateMetadataAccountV2) GetMintOfTokenAccount() *ag_solanago.AccountMeta {
+func (inst *CreateMetadataAccountV3) GetMintOfTokenAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(1)
 }
 
 // SetMintAuthorityAccount sets the "mintAuthority" account.
 // Mint authority
-func (inst *CreateMetadataAccountV2) SetMintAuthorityAccount(mintAuthority ag_solanago.PublicKey) *CreateMetadataAccountV2 {
+func (inst *CreateMetadataAccountV3) SetMintAuthorityAccount(mintAuthority ag_solanago.PublicKey) *CreateMetadataAccountV3 {
 	inst.AccountMetaSlice[2] = ag_solanago.Meta(mintAuthority).SIGNER()
 	return inst
 }
 
 // GetMintAuthorityAccount gets the "mintAuthority" account.
 // Mint authority
-func (inst *CreateMetadataAccountV2) GetMintAuthorityAccount() *ag_solanago.AccountMeta {
+func (inst *CreateMetadataAccountV3) GetMintAuthorityAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(2)
 }
 
 // SetPayerAccount sets the "payer" account.
 // payer
-func (inst *CreateMetadataAccountV2) SetPayerAccount(payer ag_solanago.PublicKey) *CreateMetadataAccountV2 {
+func (inst *CreateMetadataAccountV3) SetPayerAccount(payer ag_solanago.PublicKey) *CreateMetadataAccountV3 {
 	inst.AccountMetaSlice[3] = ag_solanago.Meta(payer).SIGNER()
 	return inst
 }
 
 // GetPayerAccount gets the "payer" account.
 // payer
-func (inst *CreateMetadataAccountV2) GetPayerAccount() *ag_solanago.AccountMeta {
+func (inst *CreateMetadataAccountV3) GetPayerAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(3)
 }
 
 // SetUpdateAuthorityInfoAccount sets the "updateAuthorityInfo" account.
 // update authority info
-func (inst *CreateMetadataAccountV2) SetUpdateAuthorityInfoAccount(updateAuthorityInfo ag_solanago.PublicKey) *CreateMetadataAccountV2 {
-	inst.AccountMetaSlice[4] = ag_solanago.Meta(updateAuthorityInfo)
+func (inst *CreateMetadataAccountV3) SetUpdateAuthorityInfoAccount(updateAuthorityInfo ag_solanago.PublicKey) *CreateMetadataAccountV3 {
+	inst.AccountMetaSlice[4] = ag_solanago.Meta(updateAuthorityInfo).SIGNER()
 	return inst
 }
 
 // GetUpdateAuthorityInfoAccount gets the "updateAuthorityInfo" account.
 // update authority info
-func (inst *CreateMetadataAccountV2) GetUpdateAuthorityInfoAccount() *ag_solanago.AccountMeta {
+func (inst *CreateMetadataAccountV3) GetUpdateAuthorityInfoAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(4)
 }
 
 // SetSystemAccount sets the "system" account.
 // System program
-func (inst *CreateMetadataAccountV2) SetSystemAccount(system ag_solanago.PublicKey) *CreateMetadataAccountV2 {
+func (inst *CreateMetadataAccountV3) SetSystemAccount(system ag_solanago.PublicKey) *CreateMetadataAccountV3 {
 	inst.AccountMetaSlice[5] = ag_solanago.Meta(system)
 	return inst
 }
 
 // GetSystemAccount gets the "system" account.
 // System program
-func (inst *CreateMetadataAccountV2) GetSystemAccount() *ag_solanago.AccountMeta {
+func (inst *CreateMetadataAccountV3) GetSystemAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(5)
 }
 
 // SetRentAccount sets the "rent" account.
 // Rent info
-func (inst *CreateMetadataAccountV2) SetRentAccount(rent ag_solanago.PublicKey) *CreateMetadataAccountV2 {
+func (inst *CreateMetadataAccountV3) SetRentAccount(rent ag_solanago.PublicKey) *CreateMetadataAccountV3 {
 	inst.AccountMetaSlice[6] = ag_solanago.Meta(rent)
 	return inst
 }
 
 // GetRentAccount gets the "rent" account.
 // Rent info
-func (inst *CreateMetadataAccountV2) GetRentAccount() *ag_solanago.AccountMeta {
+func (inst *CreateMetadataAccountV3) GetRentAccount() *ag_solanago.AccountMeta {
 	return inst.AccountMetaSlice.Get(6)
 }
 
-func (inst CreateMetadataAccountV2) Build() *Instruction {
+func (inst CreateMetadataAccountV3) Build() *Instruction {
 	return &Instruction{BaseVariant: ag_binary.BaseVariant{
-		Impl:   inst,
-		TypeID: ag_binary.TypeIDFromUint8(Instruction_CreateMetadataAccountV2),
+		Impl:   inst, 
+		TypeID: ag_binary.TypeIDFromUint8(33),
 	}}
 }
 
 // ValidateAndBuild validates the instruction parameters and accounts;
 // if there is a validation error, it returns the error.
 // Otherwise, it builds and returns the instruction.
-func (inst CreateMetadataAccountV2) ValidateAndBuild() (*Instruction, error) {
+func (inst CreateMetadataAccountV3) ValidateAndBuild() (*Instruction, error) {
 	if err := inst.Validate(); err != nil {
 		return nil, err
 	}
 	return inst.Build(), nil
 }
 
-func (inst *CreateMetadataAccountV2) Validate() error {
+func (inst *CreateMetadataAccountV3) Validate() error {
 	// Check whether all (required) parameters are set:
 	{
 		if inst.Args == nil {
@@ -194,11 +194,11 @@ func (inst *CreateMetadataAccountV2) Validate() error {
 	return nil
 }
 
-func (inst *CreateMetadataAccountV2) EncodeToTree(parent ag_treeout.Branches) {
+func (inst *CreateMetadataAccountV3) EncodeToTree(parent ag_treeout.Branches) {
 	parent.Child(ag_format.Program(ProgramName, ProgramID)).
 		//
 		ParentFunc(func(programBranch ag_treeout.Branches) {
-			programBranch.Child(ag_format.Instruction("CreateMetadataAccountV2")).
+			programBranch.Child(ag_format.Instruction("CreateMetadataAccountV3")).
 				//
 				ParentFunc(func(instructionBranch ag_treeout.Branches) {
 
@@ -221,7 +221,7 @@ func (inst *CreateMetadataAccountV2) EncodeToTree(parent ag_treeout.Branches) {
 		})
 }
 
-func (obj CreateMetadataAccountV2) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
+func (obj CreateMetadataAccountV3) MarshalWithEncoder(encoder *ag_binary.Encoder) (err error) {
 	// Serialize `Args` param:
 	err = encoder.Encode(obj.Args)
 	if err != nil {
@@ -229,7 +229,7 @@ func (obj CreateMetadataAccountV2) MarshalWithEncoder(encoder *ag_binary.Encoder
 	}
 	return nil
 }
-func (obj *CreateMetadataAccountV2) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
+func (obj *CreateMetadataAccountV3) UnmarshalWithDecoder(decoder *ag_binary.Decoder) (err error) {
 	// Deserialize `Args`:
 	err = decoder.Decode(&obj.Args)
 	if err != nil {
@@ -238,10 +238,10 @@ func (obj *CreateMetadataAccountV2) UnmarshalWithDecoder(decoder *ag_binary.Deco
 	return nil
 }
 
-// NewCreateMetadataAccountV2Instruction declares a new CreateMetadataAccountV2 instruction with the provided parameters and accounts.
-func NewCreateMetadataAccountV2Instruction(
+// NewCreateMetadataAccountV3Instruction declares a new CreateMetadataAccountV3 instruction with the provided parameters and accounts.
+func NewCreateMetadataAccountV3Instruction(
 	// Parameters:
-	args CreateMetadataAccountArgsV2,
+	args CreateMetadataAccountArgsV3,
 	// Accounts:
 	metadataKeyPDA ag_solanago.PublicKey,
 	mintOfToken ag_solanago.PublicKey,
@@ -249,8 +249,8 @@ func NewCreateMetadataAccountV2Instruction(
 	payer ag_solanago.PublicKey,
 	updateAuthorityInfo ag_solanago.PublicKey,
 	system ag_solanago.PublicKey,
-	rent ag_solanago.PublicKey) *CreateMetadataAccountV2 {
-	return NewCreateMetadataAccountV2InstructionBuilder().
+	rent ag_solanago.PublicKey) *CreateMetadataAccountV3 {
+	return NewCreateMetadataAccountV3InstructionBuilder().
 		SetArgs(args).
 		SetMetadataKeyPDAAccount(metadataKeyPDA).
 		SetMintOfTokenAccount(mintOfToken).
